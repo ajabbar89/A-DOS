@@ -34,9 +34,15 @@ Intermediate object files ****.o*** is stored inside the ***./build*** folder.
 The assembly code written can be tested in qemu. During dev, the correctness of registers can be checked using gdb by 
 linking qemu with gdb as a remote target for gdb,
 ***$target remote | qemu-system-x86_64 -hda ./boot.bin -S -gdb stdio***
+
 To see the registers
 ***$info registers***
 
+In order to see the symbols for object code, such as kernel_final.o, we can do
+***$add-symbol-file ./build/kernel_final.o 0x1000000*** Here 0x1000000 is the start address of the kernel
+The reason to do this step instead of directly trying to do gdb on the binary os.bin is because the binary cannot be executed 
+on our host system. It won't work. Instead we execute it using qemu as we are simulating system boot into os.bin. Hence, we need 
+to add-symbol-file separately and then hook up gdb with remote target of qemu.
 
 ### Boot flow
 The ./src/boot/boot.asm is the BLR code which sets up the protected mode settings. The kernel will be present from 2nd sector onwards.
