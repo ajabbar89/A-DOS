@@ -65,7 +65,7 @@ DATA_SEG equ gdt_data-gdt_start
 _load32:
 	mov eax,1
 	mov ecx,100 ;Reading 100 sectors from HDD
-	mov edi,0x100000 ;The memory location where kernel must be loaded, ie, 1M or 1024*1024	
+	mov edi,0x100000 ;The memory location where kernel must be loaded	
 	call ata_lba_read
 	jmp CODE_SEG:0x100000
 

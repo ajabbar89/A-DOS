@@ -8,8 +8,7 @@ code from disk into memory.
 
 But in protected mode, BIOS interrupts like INT 0x13(to read from HDD) are unavailable. So, to read from HDD, we need to 
 write our own code. This code can be written in C or .asm. We have driver written in .asm for this inside boot.asm. This driver 
-is written to the kernel code into predefined memory location. Right now kernel start is assumed as 0x1000000 or ***1024*1024*** 
-location.
+is written to the kernel code into predefined memory location. Right now kernel start is assumed as 0x100000 location.
 
 ## Compilation
 For the .asm files the project uses the "nasm" assembler since the assembly language format used is of nasm format or dialect.
@@ -30,19 +29,28 @@ to the boot.bin file.
 Intermediate object files ****.o*** is stored inside the ***./build*** folder.
 
 
-### GDB usage for assembly code
-The assembly code written can be tested in qemu. During dev, the correctness of registers can be checked using gdb by 
-linking qemu with gdb as a remote target for gdb,
+### Testing
+Use qemu to test the kernel code.
+***$qemu-system-x86_64 -hda ./bin/os.bin***
+
+### GDB usage for debugging
+
+During dev, the correctness of registers can be checked using gdb by linking qemu with gdb as a remote target for gdb,
 ***$target remote | qemu-system-x86_64 -hda ./boot.bin -S -gdb stdio***
 
 To see the registers
 ***$info registers***
 
-In order to see the symbols for object code, such as kernel_final.o, we can do
-***$add-symbol-file ./build/kernel_final.o 0x1000000*** Here 0x1000000 is the start address of the kernel
-The reason to do this step instead of directly trying to do gdb on the binary os.bin is because the binary cannot be executed 
+The symbols need to be loaded explicitly in gdb
+***$add-symbol-file ./build/kernel_final.o 0x100000*** Here 0x100000 is the start address of the kernel
+The reason to do this step instead of directly running binary os.bin on gdb is because the binary cannot be executed 
 on our host system. It won't work. Instead we execute it using qemu as we are simulating system boot into os.bin. Hence, we need 
 to add-symbol-file separately and then hook up gdb with remote target of qemu.
+
+For .asm code, we could get the layout of gdb to be showing disassembled code, by ***$layout asm***
+
+Pressing continue after hooking qemu on gdb remotely, will do program execution. So, any breakpoints needed can be set before 
+trying "continue" inside gdb.
 
 ### Boot flow
 The ./src/boot/boot.asm is the BLR code which sets up the protected mode settings. The kernel will be present from 2nd sector onwards.
@@ -50,7 +58,7 @@ The bootloader code flow starts out by ensuring that BPB data is provided to the
 to BIOS to jump to the loader code offseted from segment location 0x7C0 as $jmp ***_start:0x7C0***. This section of BLR will be in 
 16 bit mode. To enter into protected or 32-bit mode, the GDT needs to be loaded and after that the 16bit code will jump to
 CODE segment in 32-bit mode. In 32bit mode Code segment, there is an assembly driver for loading the disk contents(kernel) into
-memory location starting 0x1000000. After the load, jmp is done to 0x1000000, where the kernel code will be loacted. The kernel.asm file 
+memory location starting 0x100000. After the load, jmp is done to 0x100000, where the kernel code will be loacted. The kernel.asm file 
 will have the label ***_start*** which will be the entry point of the machine code that will be generated as kernel machine code. 
 This is specified in the linker.ld linker script. Further the kernel.asm will call kernel_main which is function inside kernel C 
 source code and execution will convene.
@@ -58,7 +66,7 @@ source code and execution will convene.
 
 ### Things to consider in linking
 linker.ld will be the linker script file responsible for defining the layout of the kernel code in memory. The kernel code 
-is expected to start out from memory location 1M or ***1024*1024*** or 0x100000. The linker.ld has an .asm section defined so that
+is expected to start out from memory location 0x10000. The linker.ld has an .asm section defined so that
 the asm code will be separated from C code in memory so as not to mess up the C-code's alignment in memory. This .asm section 
 is therefore placed the last in the "SECTION" layout of the linker script. But a key point to be noted is that while 
 linking the files needed for the kernel.bin, the kernel_final.o must be linked first so that it will get loaded into memory at 
