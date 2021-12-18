@@ -23,7 +23,9 @@ struct idtr_desc {
 
 void idt_init();
 void idt_set(int,void (*)());
+void generic_irq_handler();
 void idt_zero();
+void irq21_handler();
 
 #endif
 

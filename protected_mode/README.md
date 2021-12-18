@@ -77,7 +77,28 @@ will in fact load kernel.asm related code first.
 
 ### Programmable Interrupt Controller(PIC)
 The PIC allows us to map the system supported IRQs to IRQ#(these are not system exceptions but interrupts from basic peripherals). 
-As an example, the first such IRQ is a timer interrupt. Typically 8-15# is meant for system exceptions in protected mode. 
+As an example, the first IRQ for processor is a timer interrupt. Typically 8-15# is meant for system exceptions in protected mode. 
 In the project we will start IRQ# from IRQ20. So, IRQ20 is effectively the timer interrupt and IRQ21 will be the keyboard interrupt. 
 For this, the PIC needs to be made aware that the IRQs start from 20. This is done in asm code in kernel.asm file before kernel_main 
 call.
+The setup of PIC is done in kernel_main after loading the IDTR with Interrupt descriptor table(effectively the function pointers to 
+exception and interrupt handlers)
+
+### Heap implementation
+The heap memory shall start at 0x1000000. 100MB is the target heap size. A heap mapping table will be created which will therefore take 
+up 100\*1024\*1024/4096 = 25600 bytes. The 4096 is the 4K block size of a heap entry.
+Each entry of table will have the below bitmapping.
+Bits
+	0-3 : Entry type
+	4-5 : Reserved
+	  6 : If the entry corresponds to the start of the block
+	  7 : If the entry corresponds to memory which has blocks succeeding it in the allocation
+Mapping to byte values,
+	0xC1 : Block is taken and its the first block in allocation and there are more blocks succeeding it. //First block of allocation
+	0x41 : Block is taken and its the first block in allocation and no more blocks succeeding it.//First & single block of allocation
+	0x81 : Block is taken and its not first block in allocation with more blocks following it. //Intermediate block in allocation
+	0x01 : Block is taken and its not first block nor are there are blocks after it. //Last block in allocation
+	0x00 : Block is free
+	0xX0 : Block is free, in case the upper bits were not cleared off when block was released
+
+
