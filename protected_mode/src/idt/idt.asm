@@ -1,6 +1,12 @@
 section .asm
 
 global idt_load
+global generic_irq_handler_wrapper
+global irq21_handler_wrapper
+
+extern irq21_handler
+extern generic_irq_handler
+
 idt_load:
 	push ebp
 	mov ebp,esp
@@ -9,4 +15,19 @@ idt_load:
 	lidt [ebx]
 	pop ebp
 	ret
-	
+
+generic_irq_handler_wrapper:
+	cli
+	pushad
+	call generic_irq_handler
+	popad
+	sti
+	iret
+
+irq21_handler_wrapper:
+	cli
+	pushad
+	call irq21_handler
+	popad
+	sti
+	iret	

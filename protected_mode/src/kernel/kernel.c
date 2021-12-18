@@ -4,6 +4,7 @@
 #include "memory.h"
 
 extern void _problem(); //To link the _problem lable defined in kernel.asm to validate interrupt implementation
+extern void _setup_PIC(); //To setup the programmable interrupt controller mapping of system peripheral interrupts
 
 
 uint16_t *video_mem = NULL;
@@ -81,12 +82,15 @@ void kernel_main() {
 	terminal_init();
 	print("Hello World!\n");
 	print("Anwar loves Senia");
-
+	
 	//Initialize Interrupt Descriptor Table
 	idt_init();
+	
+	//Setup the Programmable interrupt controller
+	_setup_PIC();
 
 	//Validating Interrupt implementation
 	//_problem();
 	
-	outb(0x60,0xff);
+	//outb(0x60,0xff); //This is to test if in/out implementation works. Test it out using GDB and breaking at this line and then checking the EDX and EAX register contents which will be filled with these arguments.
 }

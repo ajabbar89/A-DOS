@@ -74,3 +74,10 @@ linking the files needed for the kernel.bin, the kernel_final.o must be linked f
 explicitly it will be treated as .text. So when its getting linked with other C code to generate kernel.bin, we must ensure
 that its the first one to be linked so that at 0x100000 when the driver in boot.asm which reads from disk to load kernel to memory,
 will in fact load kernel.asm related code first.
+
+### Programmable Interrupt Controller(PIC)
+The PIC allows us to map the system supported IRQs to IRQ#(these are not system exceptions but interrupts from basic peripherals). 
+As an example, the first such IRQ is a timer interrupt. Typically 8-15# is meant for system exceptions in protected mode. 
+In the project we will start IRQ# from IRQ20. So, IRQ20 is effectively the timer interrupt and IRQ21 will be the keyboard interrupt. 
+For this, the PIC needs to be made aware that the IRQs start from 20. This is done in asm code in kernel.asm file before kernel_main 
+call.

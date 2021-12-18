@@ -31,7 +31,7 @@ KERNEL_BUILD_FILES = $(BUILD_DIR)/kernel.asm.o $(BUILD_DIR)/kernel.o $(BUILD_DIR
 
 
 #Final build targets
-all: BLR kernel_compile kernel_link os 
+all: BLR kernel_compile kernel_link os ctags 
 
 BLR:
 	$(AS) -f bin $(BLR_SRC) -o $(BLR_OUT)
@@ -47,5 +47,9 @@ os:
 	dd if=$(KERNEL_OUT) >> $(OS_OUT)
 	dd if=/dev/zero bs=512 count=100 >> $(OS_OUT)
 
+ctags:
+	find . -path "./src/*" -or -path "./include/*" > ctags_files_list
+	ctags -L ctags_files_list
+
 clean:
-	rm -f ./bin/*.bin ./build/*.o ./src/*.asm.o ./src/idt/*.asm.o ./memory/*o ./src/*.o
+	rm -f ./bin/*.bin ./build/*.o ./src/*.asm.o ./src/idt/*.asm.o ./memory/*o ./src/*.o ctags_files_list tags

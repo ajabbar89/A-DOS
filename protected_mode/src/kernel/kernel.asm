@@ -2,6 +2,7 @@
 
 global _start
 global _problem
+global _setup_PIC
 
 extern kernel_main
 
@@ -25,6 +26,25 @@ _start:
 
         call kernel_main
 	jmp $
+
+
+_setup_PIC:
+	cli
+	;Mapping the Programmable Interrupt controller to start IRQs from 20
+	mov al, 00010001b
+	out 0x20,al ; Master PIC's port is 0x20
+
+	mov al,0x20 ; Interrupt 0x20 is where IRQs must start, IRQs here referring to system peripheral interrupts
+	out 0x21,al
+
+	mov al,00000001b
+	out 0x21,al
+	;End of PIC mapping
+
+	;Enabling interrupts because the PIC was being mapped
+	sti
+	ret
+
 
 _problem:
 	mov ax,0
