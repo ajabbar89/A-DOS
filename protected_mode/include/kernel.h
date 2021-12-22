@@ -9,5 +9,7 @@ void terminal_putchar(int,int,char,char);
 void terminal_writechar(char,char);
 void kernel_main();
 void print(const char *);
+void kheap_init();
+void *kmalloc(size_t bytes);
 
 #endif

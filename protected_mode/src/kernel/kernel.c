@@ -82,7 +82,9 @@ void kernel_main() {
 	terminal_init();
 	print("Hello World!\n");
 	print("Anwar loves Senia");
-	
+
+	kheap_init();
+
 	//Initialize Interrupt Descriptor Table
 	idt_init();
 	
@@ -93,4 +95,9 @@ void kernel_main() {
 	//_problem();
 	
 	//outb(0x60,0xff); //This is to test if in/out implementation works. Test it out using GDB and breaking at this line and then checking the EDX and EAX register contents which will be filled with these arguments.
+	
+	void *ptr = kmalloc(50);
+	void *ptr1 = kmalloc(5000);
+	if(ptr || ptr1)
+		;
 }

@@ -31,7 +31,7 @@ Intermediate object files ****.o*** is stored inside the ***./build*** folder.
 
 ### Testing
 Use qemu to test the kernel code.
-***$qemu-system-x86_64 -hda ./bin/os.bin***
+***$qemu-system-i386 -hda ./bin/os.bin***
 
 ### GDB usage for debugging
 
