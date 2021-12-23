@@ -11,5 +11,6 @@ void kernel_main();
 void print(const char *);
 void kheap_init();
 void *kmalloc(size_t bytes);
+void kfree(void *ptr);
 
 #endif

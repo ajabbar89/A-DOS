@@ -3,9 +3,19 @@ section .asm
 global idt_load
 global generic_irq_handler_wrapper
 global irq21_handler_wrapper
+global enable_interrupts
+global disable_interrupts
 
 extern irq21_handler
 extern generic_irq_handler
+
+enable_interrupts:
+	sti
+	ret
+
+disable_interrupts:
+	cli
+	ret
 
 idt_load:
 	push ebp

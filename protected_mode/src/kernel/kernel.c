@@ -5,7 +5,8 @@
 
 extern void _problem(); //To link the _problem lable defined in kernel.asm to validate interrupt implementation
 extern void _setup_PIC(); //To setup the programmable interrupt controller mapping of system peripheral interrupts
-
+extern void enable_interrupts();
+extern void disable_interrupts();
 
 uint16_t *video_mem = NULL;
 int terminal_row,terminal_col;
@@ -85,11 +86,15 @@ void kernel_main() {
 
 	kheap_init();
 
+	disable_interrupts();
+
 	//Initialize Interrupt Descriptor Table
 	idt_init();
 	
 	//Setup the Programmable interrupt controller
 	_setup_PIC();
+
+	enable_interrupts();
 
 	//Validating Interrupt implementation
 	//_problem();
@@ -98,6 +103,8 @@ void kernel_main() {
 	
 	void *ptr = kmalloc(50);
 	void *ptr1 = kmalloc(5000);
-	if(ptr || ptr1)
-		;
+	kfree(ptr);
+	kfree(ptr1);
+	void *ptr2 = kmalloc(10000);
+	kfree(ptr2);
 }

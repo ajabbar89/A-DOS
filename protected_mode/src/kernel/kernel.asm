@@ -29,7 +29,6 @@ _start:
 
 
 _setup_PIC:
-	cli
 	;Mapping the Programmable Interrupt controller to start IRQs from 20
 	mov al, 00010001b
 	out 0x20,al ; Master PIC's port is 0x20
@@ -41,8 +40,6 @@ _setup_PIC:
 	out 0x21,al
 	;End of PIC mapping
 
-	;Enabling interrupts because the PIC was being mapped
-	sti
 	ret
 
 
