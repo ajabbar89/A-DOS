@@ -23,11 +23,11 @@ ASM_OBJS_BUILD: $(ASM_OBJS)
 	mv $(KERNEL_SRC_DIR)/*.asm.o $(IDT_SRC_DIR)/*.asm.o $(IO_SRC_DIR)/*.asm.o  $(BUILD_DIR)
 
 C_OBJS_BUILD: $(C_OBJS)
-	mv $(KERNEL_SRC_DIR)/*.o $(IDT_SRC_DIR)/*.o $(MEMORY_SRC_DIR)/*.o $(BUILD_DIR) 
+	mv $(KERNEL_SRC_DIR)/*.o $(IDT_SRC_DIR)/*.o $(MEMORY_SRC_DIR)/*.o  $(IO_SRC_DIR)/*.o $(BUILD_DIR) 
 
 KERNEL_OBJS: ASM_OBJS_BUILD C_OBJS_BUILD
 
-KERNEL_BUILD_FILES = $(BUILD_DIR)/kernel.asm.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/idt.o $(BUILD_DIR)/memory.o $(BUILD_DIR)/idt.asm.o $(BUILD_DIR)/io.asm.o $(BUILD_DIR)/heap.o $(BUILD_DIR)/kheap.o $(BUILD_DIR)/paging.o $(BUILD_DIR)/paging.asm.o
+KERNEL_BUILD_FILES = $(BUILD_DIR)/kernel.asm.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/idt.o $(BUILD_DIR)/memory.o $(BUILD_DIR)/idt.asm.o $(BUILD_DIR)/io.asm.o $(BUILD_DIR)/heap.o $(BUILD_DIR)/kheap.o $(BUILD_DIR)/paging.o $(BUILD_DIR)/paging.asm.o $(BUILD_DIR)/disk.o
 
 
 #Final build targets

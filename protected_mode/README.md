@@ -36,7 +36,7 @@ Use qemu to test the kernel code.
 ### GDB usage for debugging
 
 During dev, the correctness of registers can be checked using gdb by linking qemu with gdb as a remote target for gdb,
-***$target remote | qemu-system-i386 -hda ./boot.bin -S -gdb stdio***
+***$target remote | qemu-system-i386 -hda ./bin/os.bin -S -gdb stdio***
 
 To see the registers
 ***$info registers***
