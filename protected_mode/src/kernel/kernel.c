@@ -4,6 +4,8 @@
 #include "memory.h"
 #include "paging.h"
 
+#define PAGING_TESTING			0
+
 extern void _problem(); //To link the _problem lable defined in kernel.asm to validate interrupt implementation
 extern void _setup_PIC(); //To setup the programmable interrupt controller mapping of system peripheral interrupts
 extern void enable_interrupts();
@@ -102,7 +104,22 @@ void kernel_main() {
 
 	page_directory_switch(kernel_page_directory);
 
+	//Testing paging action by mapping address 0x1000 inside kernel space to some memory received from heap
+	//ptr3 -> ptr4. Printing the contents of both after enabling paging shows them to be the same
+#if PAGING_TESTING
+	char *ptr4 = kmalloc(4096);
+	set_page_table_entry((void *)0x1000,kernel_page_directory,(uint32_t)ptr4 | PAGE_PRESENT | PAGE_READ_WRITE | PAGE_USER_SUPERVISOR);
+#endif
 	enable_paging();
+
+#if PAGING_TESTING
+	char *ptr3 = (char *)0x1000;
+	char paging_test_string[] = "\nPAGING WORKS\n";
+	for(int i = 0; i < sizeof(paging_test_string)/sizeof(char); i++) 
+		ptr3[i] = paging_test_string[i];
+	print(ptr3);
+	print(ptr4);
+#endif
 
 	enable_interrupts();
 
@@ -117,4 +134,5 @@ void kernel_main() {
 	kfree(ptr1);
 	void *ptr2 = kmalloc(10000);
 	kfree(ptr2);
+
 }

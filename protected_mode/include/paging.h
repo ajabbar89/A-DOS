@@ -51,5 +51,8 @@ paging_chunk_4gb *create_page_directory(uint8_t flags);
 uint32_t *get_page_directory(paging_chunk_4gb *chunk_4gb);
 void page_directory_switch(uint32_t *page_directory);
 void enable_paging();
+bool address_aligned(uint32_t *virtual_address);
+int get_page_table_index(void *virtual_address, uint32_t *page_directory_index, uint32_t *page_table_index);
+int set_page_table_entry(void *virtual_address, uint32_t *page_directory, uint32_t physical_address);
 
 #endif

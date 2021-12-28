@@ -28,3 +28,30 @@ void page_directory_switch(uint32_t *page_directory) {
 	page_directory_load(page_directory);
 	current_directory = page_directory;
 }
+
+bool address_aligned(uint32_t *virtual_address) {
+	return (*virtual_address % PAGE_SIZE) == 0;
+}
+
+int get_page_table_index(void *virtual_address, uint32_t *page_directory_index, uint32_t *page_table_index) {
+	if(address_aligned(virtual_address)) {
+	*page_directory_index = (uint32_t)virtual_address/(PAGE_SIZE*PAGE_DIRECTORY_ENTRIES);//Basically each directory entry will cover addresses over a range of 4096*1024, ie, each entry has addresses starting from base to base+4096*1024
+	*page_table_index = ((uint32_t)virtual_address % (PAGE_SIZE*PAGE_DIRECTORY_ENTRIES))/PAGE_SIZE;
+	}
+	else 
+		return -1;
+	return 0;
+}
+
+int set_page_table_entry(void *virtual_address, uint32_t *page_directory, uint32_t physical_address) {
+	uint32_t page_directory_index = 0;
+	uint32_t page_table_index = 0;
+	if(address_aligned(virtual_address)) {
+		get_page_table_index(virtual_address,&page_directory_index,&page_table_index);
+		uint32_t *page_table = (uint32_t *)(page_directory[page_directory_index] & 0xFFFFF000);//Retrieving the page table start location for the virtual address from the page directory
+		page_table[page_table_index] = physical_address;//The physical_address here is the 'OR' of the physical address and the flags
+	}
+	else 
+		return -1;
+	return 0;
+}
