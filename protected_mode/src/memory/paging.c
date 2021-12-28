@@ -1,5 +1,5 @@
-#include "paging.h"
-#include "kernel.h"
+#include <memory/paging.h>
+#include <kernel/kernel.h>
 
 static uint32_t *current_directory = 0;
 extern void page_directory_load(uint32_t *);

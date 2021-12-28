@@ -1,7 +1,7 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#include "common.h"
+#include <common.h>
 
 #define TOTAL_INTERRUPTS 		512
 #define KERNEL_CODE_SELECTOR 		0x8
@@ -16,5 +16,7 @@
 #define HEAP_SIZE 			100*1024*1024 //MB expressed in bytes
 #define HEAP_TABLE_SIZE			((HEAP_SIZE)/(PAGE_SIZE))
 #define HEAP_TABLE_ADDRESS		0x00007E00
+
+#define SECTOR_SIZE			512
 
 #endif

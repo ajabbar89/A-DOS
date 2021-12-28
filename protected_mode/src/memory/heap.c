@@ -1,6 +1,6 @@
-#include "heap.h"
-#include "error_types.h"
-#include "memory.h"
+#include <memory/heap.h>
+#include <error/error_types.h>
+#include <memory/memory.h>
 
 static bool heap_validate_alignment(void *address) {
 	return ((uint32_t)address % PAGE_SIZE) == 0; 

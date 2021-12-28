@@ -1,7 +1,7 @@
-#include "idt.h"
-#include "memory.h"
-#include "kernel.h"
-#include "io.h"
+#include <idt/idt.h>
+#include <memory/memory.h>
+#include <kernel/kernel.h>
+#include <io/io.h>
 
 struct idt_desc idt_descriptors[TOTAL_INTERRUPTS];
 struct idtr_desc idtr_descriptor;

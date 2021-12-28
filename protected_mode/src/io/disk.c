@@ -1,7 +1,9 @@
-#include "io.h"
+#include <io/io.h>
+#include <memory/memory.h>
 
+disk_t disk;//To represent the primary HDD
 
-int disk_read_sector(int lba, int total, void *buf) {
+int disk_read_sector(uint32_t lba, int total, void *buf) {
 	outb(0x1F6,(lba >> 24) | 0xE0);
 	outb(0x1F2,total);
 	outb(0x1F3,(unsigned char)(lba & 0xff));
@@ -24,4 +26,24 @@ int disk_read_sector(int lba, int total, void *buf) {
 		}
 	}
 	return 0;
+}
+
+
+void disk_init() {
+	disk.type = 0;//0 is supposed to represent the primary HDD
+	disk.sector_size = SECTOR_SIZE;
+}
+
+disk_t *get_disk(int index) {
+	if(index != 0)
+		return 0;
+
+	return &disk;
+}
+
+int disk_read_block(disk_t *idisk, uint32_t lba, int total, void *buf) {
+	if(idisk != &disk)
+		return -1;
+
+	return disk_read_sector(lba,total,buf);
 }

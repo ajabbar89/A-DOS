@@ -1,7 +1,7 @@
-#include "heap.h"
-#include "common.h"
-#include "kernel.h"
-#include "error_types.h"
+#include <memory/heap.h>
+#include <common.h>
+#include <kernel/kernel.h>
+#include <error/error_types.h>
 
 heap *kernel_heap;
 

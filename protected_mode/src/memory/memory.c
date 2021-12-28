@@ -1,4 +1,4 @@
-#include "memory.h"
+#include <memory/memory.h>
 
 void *memset(void *ptr, int num, size_t size) {
 	uint8_t *p = (uint8_t *)ptr;

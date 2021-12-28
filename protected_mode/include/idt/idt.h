@@ -5,8 +5,8 @@
 #ifndef __IDT_H__
 #define __IDT_H__
 
-#include "common.h"
-#include "config.h"
+#include <common.h>
+#include <config/config.h>
 
 struct idt_desc {
 	uint16_t offset_1; //offset bits 0-15

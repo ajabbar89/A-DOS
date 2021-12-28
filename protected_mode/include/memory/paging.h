@@ -1,8 +1,8 @@
 #ifndef __PAGING_H__
 #define __PAGING_H__
 
-#include "config.h"
-#include "common.h"
+#include <config/config.h>
+#include <common.h>
 
 #define PAGE_TABLE_ENTRIES		1024U
 #define PAGE_DIRECTORY_ENTRIES		1024U

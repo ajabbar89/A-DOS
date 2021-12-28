@@ -1,8 +1,8 @@
-#include "kernel.h"
-#include "idt.h"
-#include "io.h"
-#include "memory.h"
-#include "paging.h"
+#include <kernel/kernel.h>
+#include <idt/idt.h>
+#include <io/io.h>
+#include <memory/memory.h>
+#include <memory/paging.h>
 
 #define PAGING_TESTING			0
 
@@ -91,6 +91,8 @@ void kernel_main() {
 	kheap_init();
 
 	disable_interrupts();
+
+	disk_init();
 
 	//Initialize Interrupt Descriptor Table
 	idt_init();
