@@ -27,7 +27,7 @@ C_OBJS_BUILD: $(C_OBJS)
 
 KERNEL_OBJS: ASM_OBJS_BUILD C_OBJS_BUILD
 
-KERNEL_BUILD_FILES = $(BUILD_DIR)/kernel.asm.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/idt.o $(BUILD_DIR)/memory.o $(BUILD_DIR)/idt.asm.o $(BUILD_DIR)/io.asm.o $(BUILD_DIR)/heap.o $(BUILD_DIR)/kheap.o
+KERNEL_BUILD_FILES = $(BUILD_DIR)/kernel.asm.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/idt.o $(BUILD_DIR)/memory.o $(BUILD_DIR)/idt.asm.o $(BUILD_DIR)/io.asm.o $(BUILD_DIR)/heap.o $(BUILD_DIR)/kheap.o $(BUILD_DIR)/paging.o $(BUILD_DIR)/paging.asm.o
 
 
 #Final build targets

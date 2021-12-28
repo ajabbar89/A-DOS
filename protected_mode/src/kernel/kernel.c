@@ -2,6 +2,7 @@
 #include "idt.h"
 #include "io.h"
 #include "memory.h"
+#include "paging.h"
 
 extern void _problem(); //To link the _problem lable defined in kernel.asm to validate interrupt implementation
 extern void _setup_PIC(); //To setup the programmable interrupt controller mapping of system peripheral interrupts
@@ -10,6 +11,7 @@ extern void disable_interrupts();
 
 uint16_t *video_mem = NULL;
 int terminal_row,terminal_col;
+static paging_chunk_4gb *kernel_paging_chunk_4gb;
 /*
  * 	@brief function which will generate the ASCII/colour combination
  * 	encoding which needs to be placed in video memory location 0xB8000
@@ -93,6 +95,14 @@ void kernel_main() {
 	
 	//Setup the Programmable interrupt controller
 	_setup_PIC();
+
+	kernel_paging_chunk_4gb = create_page_directory(PAGE_PRESENT | PAGE_READ_WRITE | PAGE_USER_SUPERVISOR);
+
+	uint32_t *kernel_page_directory = get_page_directory(kernel_paging_chunk_4gb);
+
+	page_directory_switch(kernel_page_directory);
+
+	enable_paging();
 
 	enable_interrupts();
 
