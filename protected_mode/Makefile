@@ -31,7 +31,11 @@ KERNEL_BUILD_FILES = $(BUILD_DIR)/kernel.asm.o $(BUILD_DIR)/kernel.o $(BUILD_DIR
 
 
 #Final build targets
-all: BLR kernel_compile kernel_link os ctags 
+all: DIR_CLEANUP BLR kernel_compile kernel_link os ctags 
+
+DIR_CLEANUP:
+	rm -rf $(BIN_DR) $(BUILD_DIR)
+	mkdir $(BIN_DIR) $(BUILD_DIR)
 
 BLR:
 	$(AS) -f bin $(BLR_SRC) -o $(BLR_OUT)

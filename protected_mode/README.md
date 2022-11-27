@@ -13,9 +13,9 @@ is written to the kernel code into predefined memory location. Right now kernel 
 ## Compilation
 For the .asm files the project uses the "nasm" assembler since the assembly language format used is of nasm format or dialect.
 For the .c files, a cross compiler is used. The cross compiler and the associated build tools are taken from GCC official 
-code and placed in ***./cross*** folder. A shells script ***setup_cross_compiler.sh*** is present inside the folder does the setup 
-of building the code for the build tools. The script needs to be edited to get the path of the ***cross*** folder housing the 
-toolchain according to one's system locations for the project.
+code and placed in ***./cross*** folder. A shell script ***setup_cross_compiler.sh*** is present inside the folder does the setup 
+of building the code for the build tools. The script needs couple of edits including the path of the ***cross*** folder housing the 
+toolchain, the GNU binutils path which will be used to setup the build tools and the GCC compiler path. Before running the shell script though, the system needs to have all the needed dependencies installed specified here, https://wiki.osdev.org/GCC_Cross-Compiler . Then, the binutils or utilities needed for the build process needs to be downloaded from here https://ftp.gnu.org/gnu/binutils/. The GCC compiler can be obtained from here https://ftp.gnu.org/gnu/gcc/. And after editing the shell script with the right paths, it can be run to setup the build system.
 
 The respective binaries needed for compiling and linking are then specified for building the code inside the ***Makefile***.
 
