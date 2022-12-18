@@ -71,10 +71,10 @@ uint32_t heap_address_to_block(heap *_heap, void *address) {
  *	by filling up the table entry data corresponding to each block inside the heap table array
  */
 void allocate_blocks(heap *_heap,uint32_t start_block, size_t blocks) {
-	uint8_t *ptr;
+	heap_table_entry *ptr;
 	uint32_t end_block = start_block + blocks - 1;
 	for(int i = start_block; i < (start_block + blocks); i++) {
-		ptr = (uint8_t *)&_heap->heap_table[i];
+		ptr = (heap_table_entry *)&_heap->heap_table[i];
 		if(i == start_block && blocks == 1)
 			*ptr = LONE_BLOCK;
 		else if(i == start_block && blocks > 1)
@@ -91,10 +91,10 @@ void allocate_blocks(heap *_heap,uint32_t start_block, size_t blocks) {
  *	entry value
  */
 void deallocate_blocks(heap *_heap, uint32_t start_block) {
-	uint8_t *ptr = (uint8_t *)&_heap->heap_table[start_block];
+	heap_table_entry *ptr = (heap_table_entry *)&_heap->heap_table[start_block];
 	*ptr = 0x0;
 	ptr++;
-	while(*ptr != LONE_BLOCK && *ptr != FIRST_BLOCK && *ptr != 0x0 && (uint32_t *)ptr <= (uint32_t *)&_heap->heap_table[HEAP_TABLE_SIZE-1])
+	while(*ptr != LONE_BLOCK && *ptr != FIRST_BLOCK && *ptr != 0x0 && (uint32_t *)ptr <= (uint32_t *)&(_heap->heap_table[HEAP_TABLE_SIZE-1]))
 		*ptr++ = 0x0;
 }
 

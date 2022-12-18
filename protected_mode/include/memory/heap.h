@@ -34,6 +34,8 @@ Mapping to byte values,
 #define INTERIM_BLOCK		0x81
 #define FIRST_BLOCK		0xC1
 
+typedef uint8_t heap_table_entry;
+
 typedef struct {
 	uint8_t block_status:4;
 	uint8_t reserved:2;
