@@ -84,13 +84,14 @@ void kernel_main() {
 	video_mem[0] = 'A';
 	video_mem[1] = '1'; //The 2nd byte is for color
 */
+	disable_interrupts();
+
 	terminal_init();
 	print("Hello World!\n");
-	print("Anwar loves Senia");
 
+	print("Initializing kernel heap.....\n");
 	kheap_init();
-
-	disable_interrupts();
+	print("Kernel heap init done.\n");
 
 	disk_init();
 
@@ -100,11 +101,13 @@ void kernel_main() {
 	//Setup the Programmable interrupt controller
 	_setup_PIC();
 
+	print("Creating kernel paging directory.....\n");
 	kernel_paging_chunk_4gb = create_page_directory(PAGE_PRESENT | PAGE_READ_WRITE | PAGE_USER_SUPERVISOR);
 
 	uint32_t *kernel_page_directory = get_page_directory(kernel_paging_chunk_4gb);
 
 	page_directory_switch(kernel_page_directory);
+	print("Kernel paging directory created.\n");
 
 	//Testing paging action by mapping address 0x1000 inside kernel space to some memory received from heap
 	//ptr3 -> ptr4. Printing the contents of both after enabling paging shows them to be the same
@@ -113,6 +116,7 @@ void kernel_main() {
 	set_page_table_entry((void *)0x1000,kernel_page_directory,(uint32_t)ptr4 | PAGE_PRESENT | PAGE_READ_WRITE | PAGE_USER_SUPERVISOR);
 #endif
 	enable_paging();
+	print("\nPaging enabled\n");
 
 #if PAGING_TESTING
 	char *ptr3 = (char *)0x1000;
