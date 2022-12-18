@@ -3,7 +3,7 @@
 #include <memory/memory.h>
 
 static bool heap_validate_alignment(void *address) {
-	return ((uint32_t)address % PAGE_SIZE) == 0; 
+	return (((uint32_t)address % PAGE_SIZE) == 0); 
 }
 
 /*
