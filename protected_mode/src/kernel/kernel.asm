@@ -1,7 +1,6 @@
 [BITS 32]
 
 global _start
-global _problem
 global _setup_PIC
 
 extern kernel_main
@@ -41,11 +40,6 @@ _setup_PIC:
 	;End of PIC mapping
 
 	ret
-
-
-_problem:
-	mov ax,0
-	div ax ;to force divide by zero to validate Interrupt table
 
 times 512-($-$$) db 0x0 ; To ensure that the asm code is aligned to 512 bytes to not to mess up any C code's alignment
 	                ; This asm file will be treated as .text section by the linker script while linking since we
