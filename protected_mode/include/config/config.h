@@ -18,5 +18,6 @@
 #define HEAP_TABLE_ADDRESS		0x00007E00
 
 #define SECTOR_SIZE			512
+#define MAX_FILENAME_LENGTH	128
 
 #endif

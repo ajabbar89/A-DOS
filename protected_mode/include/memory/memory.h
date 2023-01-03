@@ -3,8 +3,11 @@
 
 #include <common.h>
 
-uint16_t char_video_memory(char,char);
 size_t strlen(const char *);
 void *memset(void *,int,size_t);
+size_t strnlen(const char *, int);
+int todigit(char);
+bool isdigit(char);
+int memcmp(void *, void *, int);
 
 #endif

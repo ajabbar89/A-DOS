@@ -12,5 +12,6 @@ void print(const char *);
 void kheap_init();
 void *kmalloc(size_t bytes);
 void kfree(void *ptr);
+uint16_t char_video_memory(char,char);
 
 #endif

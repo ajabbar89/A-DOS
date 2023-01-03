@@ -3,6 +3,7 @@
 #include <io/io.h>
 #include <memory/memory.h>
 #include <memory/paging.h>
+#include <fs/PathParser.h>
 
 #define PAGING_TESTING			0
 
@@ -134,11 +135,18 @@ void kernel_main() {
 	
 	//outb(0x60,0xff); //This is to test if in/out implementation works. Test it out using GDB and breaking at this line and then checking the EDX and EAX register contents which will be filled with these arguments.
 	
+	// Code to test kheap implementation in gdb
+	/*
 	void *ptr = kmalloc(50);
 	void *ptr1 = kmalloc(5000);
 	kfree(ptr);
 	kfree(ptr1);
 	void *ptr2 = kmalloc(10000);
 	kfree(ptr2);
+	*/
+
+	pathRoot *rootPath = pathParse("0:/bin/shell.exe");
+
+	pathParseFree(rootPath);
 
 }
