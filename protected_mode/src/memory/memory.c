@@ -7,14 +7,14 @@ void *memset(void *ptr, int num, size_t size) {
 	return p;
 }
 
-size_t strlen(const char *string) {
+int strlen(const char *string) {
 	size_t sz = 0;
 	while(*string++ != '\0')
 		sz++;
 	return sz;
 }
 
-size_t strnlen(const char *string, int length) {
+int strnlen(const char *string, int length) {
 	size_t stringLength = 0;
 	for (int i = 0; i < length; i++) {
 		if(string[i] == '\0')
@@ -24,11 +24,11 @@ size_t strnlen(const char *string, int length) {
 	return stringLength;
 }
 
-int todigit(char c) {
+int charToDigit(char c) {
 	return c-0x30;  // To return the digit value for ASCII representation of a char.
 }
 
-bool isdigit(char c) {
+bool isDigit(char c) {
 	return ((c >= 0x30) && (c <= 0x39)); 
 }
 

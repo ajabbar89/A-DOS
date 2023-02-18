@@ -2,7 +2,6 @@
 #define __KERNEL_H__
 
 #include <common.h>
-#include <config/config.h>
 
 void terminal_init(void);
 void terminal_putchar(int,int,char,char);

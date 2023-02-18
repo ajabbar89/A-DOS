@@ -2,6 +2,7 @@
 #include <common.h>
 #include <kernel/kernel.h>
 #include <error/error_types.h>
+#include <config/config.h>
 
 heap *kernel_heap;
 

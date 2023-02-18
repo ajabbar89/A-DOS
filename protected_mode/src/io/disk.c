@@ -1,5 +1,6 @@
 #include <io/io.h>
 #include <memory/memory.h>
+#include <config/config.h>
 
 disk_t disk;//To represent the primary HDD
 

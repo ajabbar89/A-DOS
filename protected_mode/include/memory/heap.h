@@ -2,7 +2,6 @@
 #define __HEAP_H__
 
 #include <common.h>
-#include <config/config.h>
 
 /*
  Each entry of table will have the below bitmapping.

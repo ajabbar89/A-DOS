@@ -4,6 +4,7 @@
 #include <memory/memory.h>
 #include <memory/paging.h>
 #include <fs/PathParser.h>
+#include <config/config.h>
 
 #define PAGING_TESTING			0
 
@@ -145,7 +146,7 @@ void kernel_main() {
 	kfree(ptr2);
 	*/
 
-	pathRoot *rootPath = pathParse("0:/bin/shell.exe");
+	pathRoot_t *rootPath = pathParse("0:/bin/shell.exe");
 
 	pathParseFree(rootPath);
 

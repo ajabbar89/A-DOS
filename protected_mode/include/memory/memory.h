@@ -3,11 +3,11 @@
 
 #include <common.h>
 
-size_t strlen(const char *);
+int strlen(const char *);
 void *memset(void *,int,size_t);
-size_t strnlen(const char *, int);
-int todigit(char);
-bool isdigit(char);
+int strnlen(const char *, int);
+int charToDigit(char);
+bool isDigit(char);
 int memcmp(void *, void *, int);
 
 #endif

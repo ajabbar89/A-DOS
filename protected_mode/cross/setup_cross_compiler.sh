@@ -1,12 +1,12 @@
 #!/bin/bash
-export PREFIX="/home/ajabbar/Code/A-DOS/protected_mode/cross"
+export PREFIX="/home/ajabbar/code/A-DOS/protected_mode/cross"
 export TARGET=i686-elf
 export PATH="$PREFIX/bin:$PATH"
 
 
 mkdir build-binutils
 cd build-binutils
-../binutils-2.39/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
+../binutils-2.40/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
 make
 make install
 

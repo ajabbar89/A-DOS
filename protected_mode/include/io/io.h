@@ -2,7 +2,6 @@
 #define __IO_H__
 
 #include <common.h>
-#include <config/config.h>
 
 
 typedef struct {
