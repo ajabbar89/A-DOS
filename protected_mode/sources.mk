@@ -20,7 +20,7 @@ MEMORY_ASM_SRC = $(MEMORY_SRC_DIR)/paging.asm
 KERNEL_C_SRC = $(KERNEL_SRC_DIR)/kernel.c $(KERNEL_SRC_DIR)/kheap.c
 IDT_C_SRC = $(IDT_SRC_DIR)/idt.c
 MEMORY_C_SRC = $(MEMORY_SRC_DIR)/memory.c $(MEMORY_SRC_DIR)/heap.c $(MEMORY_SRC_DIR)/paging.c
-IO_C_SRC = $(IO_SRC_DIR)/disk.c
+IO_C_SRC = $(IO_SRC_DIR)/disk.c $(IO_SRC_DIR)/streamer.c
 FS_C_SRC = $(FS_SRC_DIR)/PathParser.c
 
 #Summary of source files

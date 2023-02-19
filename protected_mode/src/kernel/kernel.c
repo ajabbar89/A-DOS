@@ -5,6 +5,7 @@
 #include <memory/paging.h>
 #include <fs/PathParser.h>
 #include <config/config.h>
+#include <io/streamer.h>
 
 #define PAGING_TESTING			0
 
@@ -95,7 +96,7 @@ void kernel_main() {
 	kheap_init();
 	print("Kernel heap init done.\n");
 
-	disk_init();
+	diskInit();
 
 	//Initialize Interrupt Descriptor Table
 	idt_init();
@@ -146,8 +147,23 @@ void kernel_main() {
 	kfree(ptr2);
 	*/
 
-	pathRoot_t *rootPath = pathParse("0:/bin/shell.exe");
+	// To test pathParse
+
+	/*pathRoot_t *rootPath = pathParse("0:/bin/shell.exe");
 
 	pathParseFree(rootPath);
+	*/
+
+	// To test disk streamer
+	/*stream_t *stream = getDiskStream(0);
+
+	seekOnDiskStream(stream,0x201);
+
+	unsigned char c;
+
+	readFromDiskStream(stream,(void *)&c,1);
+
+	closeDiskStream(stream);
+	*/
 
 }

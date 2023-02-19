@@ -35,7 +35,8 @@ KERNEL_BUILD_FILES = $(BUILD_DIR)/kernel.asm.o $(BUILD_DIR)/kernel.o \
 						$(BUILD_DIR)/heap.o $(BUILD_DIR)/kheap.o \
 						$(BUILD_DIR)/paging.o $(BUILD_DIR)/paging.asm.o \
 						$(BUILD_DIR)/disk.o \
-						$(BUILD_DIR)/PathParser.o
+						$(BUILD_DIR)/PathParser.o \
+						$(BUILD_DIR)/streamer.o
 
 
 #Final build targets
